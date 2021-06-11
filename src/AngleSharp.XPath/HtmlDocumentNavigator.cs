@@ -296,6 +296,12 @@ namespace AngleSharp.XPath
         /// <inheritdoc />
         public override bool MoveToParent()
 		{
+            if (HasAttributes && _attrIndex > -1)
+            {
+                _attrIndex = -1;
+                return true;
+            }
+
 			if (_currentNode.Parent == null)
 			{
 				return false;
