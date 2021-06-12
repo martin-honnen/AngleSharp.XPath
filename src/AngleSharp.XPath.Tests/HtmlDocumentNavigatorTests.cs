@@ -117,30 +117,5 @@ namespace AngleSharp.XPath.Tests
                 Assert.IsNotNull(nav.Prefix);
             }
         }
-
-        [Test]
-        public void TestAttributeNavigation()
-        {
-            var xml = @"<root att1='value 1' att2='value 2'><child>foo</child></root>";
-
-            var parser = new XmlParser();
-
-            var doc = parser.ParseDocument(xml);
-
-            var nav = doc.CreateNavigator(false);
-            
-            Assert.AreEqual(nav.Name, "root");
-            if (nav.MoveToFirstAttribute())
-            {
-                do
-                {
-                    Assert.AreEqual(nav.NodeType, XPathNodeType.Attribute);
-                }
-                while (nav.MoveToNextAttribute());
-                nav.MoveToParent();
-            }
-            Assert.AreEqual(nav.Name, "root");
-            
-        }
     }
 }
