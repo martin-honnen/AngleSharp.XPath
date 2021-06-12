@@ -1,5 +1,7 @@
 using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
 using System;
+using System.Globalization;
 using System.Xml;
 using System.Xml.XPath;
 
@@ -57,7 +59,7 @@ namespace AngleSharp.XPath
         public override string Name =>
             _attrIndex != -1
                 ? NameTable.GetOrAdd(CurrentElement.Attributes[_attrIndex].Name)
-                : NameTable.GetOrAdd(_currentNode.NodeName);
+                : NameTable.GetOrAdd(_currentNode is IHtmlElement ? _currentNode.NodeName.ToLower(CultureInfo.InvariantCulture) : _currentNode.NodeName);
 
         /// <inheritdoc />
         public override string NamespaceURI

@@ -117,5 +117,43 @@ namespace AngleSharp.XPath.Tests
                 Assert.IsNotNull(nav.Prefix);
             }
         }
+
+        [Test]
+        public void TestNameXPathFunctionOnXMLDocWithLowerCaseElementNames()
+        {
+            string xml = @"<html><head><title>Test</title></head><body><h1>Test</h1></body></html>";
+
+            var angleSharpXmlDoc = new XmlParser().ParseDocument(xml);
+
+            var xmlNav = angleSharpXmlDoc.CreateNavigator();
+
+            Assert.AreEqual(xmlNav.Evaluate("name()"), "html");
+
+        }
+
+        [Test]
+        public void TestNameXPathFunctionOnXMLDocWithUpperCaseElementNames()
+        {
+            string xml = @"<HTML><HEAD><TITLE>Test</TITLE></HEAD><BODY><H1>Test</H1></BODY></HTML>";
+
+            var angleSharpXmlDoc = new XmlParser().ParseDocument(xml);
+
+            var xmlNav = angleSharpXmlDoc.CreateNavigator();
+
+            Assert.AreEqual(xmlNav.Evaluate("name()"), "HTML");
+
+        }
+
+        [Test]
+        public void TestNameXPathFunctionOnHTMLDoc()
+        {
+            string html = @"<html><head><title>Test</title></head><body><h1>Test</h1></body></html>";
+
+            var angleSharpHtmlDoc = new HtmlParser().ParseDocument(html);
+
+            var htmlNav = angleSharpHtmlDoc.CreateNavigator();
+
+            Assert.AreEqual(htmlNav.Evaluate("name()"), "html");
+        }
     }
 }
